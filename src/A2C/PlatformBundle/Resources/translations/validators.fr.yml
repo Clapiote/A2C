@@ -1,0 +1,5 @@
+## YAML Template.
+---
+contact:
+    errors:
+        bad_email_address: La valeur entrée n'est pas une adresse e-mail valide.

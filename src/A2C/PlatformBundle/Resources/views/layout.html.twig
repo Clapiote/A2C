@@ -1,0 +1,54 @@
+{# src/A2C/PlatformBundle/Resources/views/layout.html.twig #}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>{% block title %}A2C mieux!{% endblock %}</title>
+
+        {% block stylesheets %}
+            {# On charge le CSS de bootstrap depuis le site directement #}
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        {% endblock %}
+    </head>
+    <body>
+        <div class="container">
+            <div id="header" class="jumbotron">
+                <h1>A2C mieux!</h1>
+            </div>
+        </div>
+
+        {% for message in app.session.flashbag.get('info') %}
+            <div class="alert alert-info">Message : {{ message }}</div>
+        {% endfor %}
+        <div>
+            <ul>
+                <li> <a href="{{ path('a2c_platform_home') }}">Principe</a></li>
+                <li> <a href="{{ path('a2c_platform_advert_view') }}">Trouver un partenaire</a></li>
+                <li> <a href="{{ path('a2c_platform_advert_create') }}">Déposer une annonce</a></li>
+                <li> <a href="{{ path('a2c_platform_contact') }}">Contact</a></li>
+            </ul>
+        </div>
+        <div>
+            {% block admin %}
+            {% endblock %}
+        </div> 
+        <div>
+            {% block body %}
+            {% endblock %}
+        </div>
+        <footer>
+            <p>A2C mieux © {{ 'now'|date('Y') }} Vincent le mari parfait </p>
+        </footer>
+
+    </body>
+
+    {% block javascripts %}
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    {% endblock %}
+
+
+</html>

@@ -1,0 +1,52 @@
+a2c_platform_index:
+    path:     /
+    defaults:
+        _controller: A2CPlatformBundle:Default:index
+        
+a2c_platform_home:
+    path:     /home
+    defaults:
+        _controller: A2CPlatformBundle:Default:index
+        
+a2c_platform_advert_view:
+    path:     /advert/view
+    defaults:
+        _controller: A2CPlatformBundle:Advert:view
+
+a2c_platform_advert_create:
+    path:     /advert/create
+    defaults:
+        _controller: A2CPlatformBundle:Advert:create
+        
+a2c_platform_advert_delete:
+    path:     /advert/delete
+    defaults:
+        _controller: A2CPlatformBundle:Advert:delete
+        
+a2c_platform_contact:
+    path:     /contact
+    defaults:
+        _controller: A2CPlatformBundle:Default:contact
+       
+a2c_platform_admin:
+    path:     /manage/admin
+    defaults:
+        _controller: A2CPlatformBundle:Admin:index
+        
+a2c_platform_admin_list:
+    path:     /manage/admin/list/{page}
+    defaults:
+        _controller: A2CPlatformBundle:Admin:list
+        page: 1
+    requirements:
+        page: \d*
+
+a2c_platform_admin_ban:
+    path:     /manage/admin/ban
+    defaults:
+        _controller: A2CPlatformBundle:Admin:banEmailAddress
+        
+a2c_platform_admin_mail:
+    path:     /manage/admin/mail
+    defaults:
+        _controller: A2CPlatformBundle:Admin:sendMail

@@ -1,0 +1,4 @@
+services:
+#    a2_c_platform.example:
+#        class: A2C\PlatformBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
