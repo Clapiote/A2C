@@ -6,3 +6,20 @@ contact:
         email_address: Adresse e-mail
         message: Message
         send: Envoyer
+        
+admin:
+    menu:
+        advert_list: Liste des annonces
+        ban: addresse mail
+        sendMail: Envoyer mail collectif
+        
+    list:
+        title: Liste des annonces
+        posted: Posté par
+        postedOn: le
+        empty: Aucune annonce !
+        delete: Supprimer
+        
+    controller:
+        list:
+            noPage: La page n'existe pas

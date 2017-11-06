@@ -16,6 +16,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class AdminController extends Controller 
 {
+	
+	/**
+	* Used to translate text.
+	* Constructed by getting the translator service.
+	*/
+	private $translator;
+	
+	public function __construct()
+	{
+		$this->translator = $this->get('translator');
+	}
+	
     /**
      * This action will render a default view, with only the menu.
      * @TODO : keep this action or call directly listAction ?
@@ -33,11 +45,34 @@ class AdminController extends Controller
      */
     public function listAction($page) 
     {
-        
+		if ($page < 1) {
+			throw new NotFoundHttpException($translator->trans('admin.controller.list.noPage', $page));
+		}
+		
+		
+		return $this->render('A2CPlatformBundle:Admin:list.html.twig', array(
+			'listAdvert' => $listAdvert,
+			'pageNb' => $pageNb,
+			'page' => $page)
+		);
     }
+	
+	/**
+	* This action will delete an advert.
+	* It's call by the delete button in the adverts list.
+	*/
+	public function deleteAction($request, $id)
+	{
+		
+	}
     
     public function banEmailAddressAction() 
     {
         
     }
+	
+	public function sendMailAction()
+	{
+		
+	}
 }

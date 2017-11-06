@@ -41,6 +41,13 @@ a2c_platform_admin_list:
     requirements:
         page: \d*
 
+a2c_platform_admin_advert_delete:
+    path:     /manage/admin/advert/delete/{id}
+    defaults:
+        _controller: A2CPlatformBundle:Admin:delete
+    requirements:
+        page: \d*
+        
 a2c_platform_admin_ban:
     path:     /manage/admin/ban
     defaults:

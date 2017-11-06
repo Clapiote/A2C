@@ -1,11 +1,11 @@
 {# src/A2C/PlatformBundle/Resources/views/Admin/index.html.twig #}
 
 {% extends "A2CPlatformBundle::layout.html.twig" %}
-{% block admin %}
+{% block menu_admin %}
     <ul>
-        <li><a href="{{ path('a2c_platform_admin_list') }}">Liste des annonces</a></li>
-        <li><a href="{{ path('a2c_platform_admin_ban') }}">Bannir addresse mail</a></li>
-        <li><a href="{{ path('a2c_platform_admin_mail') }}">Envoyer mail collectif</a></li>
+        <li><a href="{{ path('a2c_platform_admin_list') }}">{{ 'admin.menu.advert_list'|trans }}</a></li>
+        <li><a href="{{ path('a2c_platform_admin_ban') }}">{{ 'admin.menu.ban'|trans }}</a></li>
+        <li><a href="{{ path('a2c_platform_admin_mail') }}">{{ 'admin.menu.sendMail'|trans}}</a></li>
     </ul>
 {% endblock %}
 
