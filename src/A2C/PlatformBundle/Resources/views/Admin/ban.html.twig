@@ -1,17 +1,30 @@
-{# src/A2C/PlatformBundle/Resources/views/Admin/list.html.twig #}
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+{# src/A2C/PlatformBundle/Resources/views/Admin/ban.html.twig #}
+
+{% extends "A2CPlatformBundle:Admin:index.html.twig" %}
+
+{% block body %}
+    <h2> {{ 'admin.ban.title'|trans }} </h2>
+	
+	{# Print the list of banned email addresses, with the unban action #}
+	<table>
+		<tr>
+			<th> {{ 'admin.ban.column1'|trans }} </th>
+			<th> {{ 'admin.ban.column2'|trans }} </th>
+			<th> {{ 'admin.ban.column3'|trans }} </th>
+		</tr>
+		{% for address in listAddresses %}
+			<tr>
+				<td>{{ address.emailAddress }}</td>
+				<td>{{ address.bannedDate|date('Y-m-d H:i:s') }}</td>
+				{# Unban button #}
+				<td><form action="{{ path('a2c_platform_admin_unban', {'id': address.id}) }}" method="post">
+					<input type="submit" value="{{ 'admin.ban.unban'|trans}}" class="btn btn-danger" />
+					{# CSRF token #}
+					{{ form_rest(form) }}
+					</form>
+				</td>
+			</tr>
+		{% endfor %}
+	</table>
+	
+{% endblock %}

@@ -16,9 +16,18 @@ admin:
     list:
         title: Liste des annonces
         posted: Posté par
+        at: à
         postedOn: le
         empty: Aucune annonce !
         delete: Supprimer
+        
+    ban:
+        title: Listes adresses bannies
+        bannedOn: Bannie le
+        unban: Ne plus bannir
+        column1: Adresse e-mail
+        column2: Date
+        column3: Rétablir
         
     controller:
         list:

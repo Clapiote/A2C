@@ -23,7 +23,16 @@ class LoadAdvert extends Fixture {
         $advert2 = new Advert("Lannion", "Côtes d'armor", Advert::$purposeType["learner"], "Je voudrais apprendre le breton, ils ne parlent que ça ici.");
         $advert2->setUser($this->getReference('user2')); 
         
-        $adverts = [$advert1, $advert2];
+		$advert3 = new Advert("Nice", "Alpes-maritimes", Advert::$purposeType["teacher"], "Cours de pissaladière");
+        $advert3->setUser($this->getReference('user1')); 
+        
+        $advert4 = new Advert("Nice", "Alpes-maritimes", Advert::$purposeType["learner"], "Moi vouloir apprendre italien");
+        $advert4->setUser($this->getReference('user3')); 
+		
+		$advert5 = new Advert("Auch", "Alpes-maritimes", Advert::$purposeType["learner"], "Je voudrais apprendre à prononcer le nom de ma ville");
+        $advert5->setUser($this->getReference('user3')); 
+		
+        $adverts = [$advert1, $advert2, $advert3, $advert4, $advert5];
         
         foreach ($adverts as $a) {
             $manager->persist($a);

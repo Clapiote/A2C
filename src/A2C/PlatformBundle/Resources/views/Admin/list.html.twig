@@ -1,20 +1,20 @@
 {# src/A2C/PlatformBundle/Resources/views/Admin/list.html.twig #}
 
-{% extends "Admin/index.html.twig" %}
+{% extends "A2CPlatformBundle:Admin:index.html.twig" %}
 
 {% block body %}
     <h2> {{ 'admin.list.title'|trans }} </h2>
 	
 	{# Print the list of adverts, with actions #}
 	<ul>
-		{% for advert in listAdvert %}
+		{% for advert in listAdverts %}
 			<li>
-				{{ 'admin.list.posted'|trans}} : {{advert.user.firstName}} {{advert.user.lastName}} , {{ 'admin.list.postedOn'|trans }} : {{advert.creationDate}}
+				{{ 'admin.list.posted'|trans}} : {{advert.user.firstName}} {{advert.user.lastName}} , {{ 'admin.list.at'|trans }} {{ advert.city }} {{ 'admin.list.postedOn'|trans }} : {{advert.creationDate|date('Y-m-d H:i:s')}}
 				<p> {{ advert.text }}
 				</p>
 				{# Delete button #}
-				<form action="{{ path('a2c_platform_admin_advert_delete', {'id'}: advert.id) }}" method="post">
-					<input type="submit" value="{{ 'admin.list.delete'|trans}} class="btn btn-danger" />
+				<form action="{{ path('a2c_platform_admin_advert_delete', {'id': advert.id}) }}" method="post">
+					<input type="submit" value="{{ 'admin.list.delete'|trans}}" class="btn btn-danger" />
 					{# CSRF token #}
 					{{ form_rest(form) }}
 				</form>
