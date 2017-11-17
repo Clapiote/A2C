@@ -7,6 +7,7 @@ use A2C\PlatformBundle\Entity\Advert;
 use A2C\PlatformBundle\Entity\BannedAddress;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * This controller manage all administrations operations :
  * - list adverts
@@ -16,7 +17,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  * @author Vincent
  */
 class AdminController extends Controller 
-{	
+{
+	const NB_PER_PAGE = 3;
+	
     /**
      * This action will render a default view, with only the menu.
      * @TODO : keep this action or call directly listAction ?
@@ -35,20 +38,19 @@ class AdminController extends Controller
     public function listAction($page) 
     {
 		if ($page < 1) {
-			throw new NotFoundHttpException($this->get('translator')->trans('admin.controller.list.noPage', $page));
+			throw new NotFoundHttpException($this->get('translator')->trans('admin.controller.list.noPage', array('%page%' => $page)));
 		}
 		
-		$nbPerPage = $this->container->getParameter('nb_advert_per_page');
 		
 		$listAdverts = $this->getDoctrine()
 		->getManager()
 		->getRepository('A2CPlatformBundle:Advert')
-		->getAdverts($page, $nbPerPage);
+		->getAdverts($page, self::NB_PER_PAGE);
 		
-		$nbOfPages = ceil(count($listAdverts) / $nbPerPage);
+		$nbOfPages = ceil(count($listAdverts) / self::NB_PER_PAGE);
 		
 		if ($page > $nbOfPages) {
-			throw new NotFoundException($this->get('translator')->trans('admin.controller.list.noPage', $page));
+			throw new NotFoundHttpException($this->get('translator')->trans('admin.controller.list.noPage', array('%page%' => $page)));
 		}
 	
 		$form = $this->get('form.factory')->create();
@@ -96,7 +98,19 @@ class AdminController extends Controller
 	*/
     public function banEmailAddressAction() 
     {
+        // Build the form using BanEmailAddressType class
+        $ba  = new BannedAddress();
+        $form = $this->get('form.factory')->create(BannedAddressType::class, $ba);
         
+        // If there is a client request
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+			//@TODO : ban the address
+            $request->getSession()->getFlashBag()->add('info', $this->get('translator')->trans('admin.ban.flashbag.banned'));
+        }
+        
+        return $this->render('A2CPlatformBundle:Admin:ban.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 	
 	/**

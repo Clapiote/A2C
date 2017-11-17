@@ -3,31 +3,31 @@
 {% extends "A2CPlatformBundle::layout.html.twig" %}
 {% block body %}
 
-    <p> Idée du site : blaaaa </p>
-    <p> Qui suis-je ? </p>
-    <div> Contactez-moi </div>
+    <p> {{ 'contact.body.idea'|trans }} </p>
+    <p> {{ 'contact.body.whoami'|trans }} </p>
+    <div> {{ 'contact.body.contact'|trans }} </div>
 
     <div class="well">
+		{# <form> opening tag #}
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
-        {# Les erreurs générales du formulaire. #}
+        {# Generic form errors #}
         {{ form_errors(form) }}
 
-        {# Génération manuelle et éclatée : #}
+        {# Manual generation of the form's objects #}
+		{# Name #}
         <div class="form-group">
-            {# Génération du label. #}
             {{ form_label(form.name, 'contact.form.name', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
 
-            {# Affichage des erreurs pour ce champ précis. #}
+            {# Display errors for the group #}
             {{ form_errors(form.name) }}
 
             <div class="col-sm-10">
-                {# Génération de l'input. #}
                 {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>
 
-        {# Idem pour un autre champ. #}
+        {# E-mail address #}
         <div class="form-group">
             {{ form_label(form.emailAddress, 'contact.form.email_address', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
             {{ form_errors(form.emailAddress) }}
@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        {# Idem pour un autre champ. #}
+        {# Message #}
         <div class="form-group">
             {{ form_label(form.message, 'contact.form.message', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
             {{ form_errors(form.message) }}
@@ -46,25 +46,14 @@
         </div>
 
 
-        {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+        {# Submit button #}
         {{ form_widget(form.send, {'label': 'contact.form.send', 'attr': {'class': 'btn btn-primary'}}) }}
 
-        {# Génération automatique des champs pas encore écrits.
-           Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
-           et tous les champs cachés (type « hidden »). #}
+        {# CSRF #}
         {{ form_rest(form) }}
 
-        {# Fermeture de la balise <form> du formulaire HTML #}
+        {# </form> closing tag #}
         {{ form_end(form) }}
     </div>
-
-    {# On charge la bibliothèque jQuery. Ici, je la prends depuis le CDN google
-       mais si vous l'avez en local, changez simplement l'adresse. #}
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-    <script type="text/javascript">
-
-    </script>
-
 
 {% endblock %}

@@ -37,7 +37,7 @@ a2c_platform_admin_list:
     path:     /manage/admin/list/{page}
     defaults:
         _controller: A2CPlatformBundle:Admin:list
-        page: 1
+        page:    1
     requirements:
         page: \d*
 
@@ -47,7 +47,8 @@ a2c_platform_admin_advert_delete:
         _controller: A2CPlatformBundle:Admin:delete
     requirements:
         page: \d*
-a2c_platform_admin_ban:
+        
+a2c_platform_admin_listbanned:
     path:     /manage/admin/banned
     defaults:
         _controller: A2CPlatformBundle:Admin:listBannedEmailAddress

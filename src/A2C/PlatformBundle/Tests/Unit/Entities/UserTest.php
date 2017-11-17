@@ -8,7 +8,7 @@ use A2C\PlatformBundle\Entity\Advert;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Description of UserTest
+ * Tests for the User entity.
  *
  * @author Vincent
  */

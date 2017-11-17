@@ -1,6 +1,11 @@
 ## YAML Template.
 ---
 contact:
+    title:
+    body:
+        idea: "Idée du site : blaaaa"
+        whoami: Qui suis-je ?
+        contact: Contactez-moi!
     form:
         name: Nom
         email_address: Adresse e-mail
@@ -10,7 +15,7 @@ contact:
 admin:
     menu:
         advert_list: Liste des annonces
-        ban: addresse mail
+        ban: Bannir une adresse
         sendMail: Envoyer mail collectif
         
     list:
@@ -22,13 +27,19 @@ admin:
         delete: Supprimer
         
     ban:
-        title: Listes adresses bannies
+        newban: Bannir une adresse
+        title: Listes des adresses bannies
         bannedOn: Bannie le
         unban: Ne plus bannir
         column1: Adresse e-mail
         column2: Date
         column3: Rétablir
+        form:
+            address: Adresse e-mail
+            submit: Bannir
+        flashbag:
+            banned: L'adresse a bien été bannie.
         
     controller:
         list:
-            noPage: La page n'existe pas
+            noPage: La page %page% n'existe pas

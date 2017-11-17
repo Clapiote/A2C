@@ -5,6 +5,7 @@ namespace A2C\PlatformBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use A2C\PlatformBundle\Entity\ContactMessage;
 use A2C\PlatformBundle\Form\ContactMessageType;
@@ -24,6 +25,7 @@ class DefaultController extends Controller
         
         // If there is a client request
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+			//@TODO : send the message
             $request->getSession()->getFlashBag()->add('info', 'Message bien envoyé');
         }
         

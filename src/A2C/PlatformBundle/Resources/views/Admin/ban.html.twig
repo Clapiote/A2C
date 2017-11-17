@@ -3,6 +3,35 @@
 {% extends "A2CPlatformBundle:Admin:index.html.twig" %}
 
 {% block body %}
+	<h2> {{ 'admin.ban.newban'|trans }} </h2>
+	{# Display the form to ban an address #}
+	<div class="well">
+		{# <form> opening tag #}
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+        {# Generic form errors #}
+        {{ form_errors(form) }}
+
+        {# Manual generation of the form's objects #}
+        {# E-mail address #}
+        <div class="form-group">
+            {{ form_label(form.emailAddress, 'admin.ban.form.address', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_errors(form.emailAddress) }}
+            <div class="col-sm-10">
+                {{ form_widget(form.emailAddress) }}
+            </div>
+        </div>
+
+        {# Submit button #}
+        {{ form_widget(form.send, {'label': 'admin.ban.form.submit', 'attr': {'class': 'btn btn-primary'}}) }}
+
+        {# CSRF #}
+        {{ form_rest(form) }}
+
+        {# </form> closing tag #}
+        {{ form_end(form) }}
+    </div>
+	
     <h2> {{ 'admin.ban.title'|trans }} </h2>
 	
 	{# Print the list of banned email addresses, with the unban action #}
