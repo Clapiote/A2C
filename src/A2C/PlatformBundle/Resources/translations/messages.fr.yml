@@ -25,6 +25,8 @@ admin:
         postedOn: le
         empty: Aucune annonce !
         delete: Supprimer
+        flashbag:
+            deleted: L'annonce a bien été supprimée.
         
     ban:
         newban: Bannir une adresse
