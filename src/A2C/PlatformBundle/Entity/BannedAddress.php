@@ -4,6 +4,7 @@
 namespace A2C\PlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * This class is used to manage banned email addresses that are not linked with
  * an user. It happens when someone responds to an advert.
@@ -28,6 +29,7 @@ class BannedAddress {
     /**
      * @var string The email address that is banned
      * @ORM\Column(name="emailAddress", type="string", length=255)
+	 * @Assert\Email(message="contact.errors.bad_email_address")
      */
     private $emailAddress;
     

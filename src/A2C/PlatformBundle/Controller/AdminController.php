@@ -6,10 +6,12 @@ namespace A2C\PlatformBundle\Controller;
 
 use A2C\PlatformBundle\Entity\Advert;
 use A2C\PlatformBundle\Entity\BannedAddress;
+use A2C\PlatformBundle\Form\BannedAddressType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
+
 
 /**
  * This controller manage all administrations operations :
@@ -93,15 +95,27 @@ class AdminController extends Controller
     /**
      * This action will display the list of the banned email addresses, without pagination.
      */
-    public function listBannedEmailAddressAction()
+    public function listBannedEmailAddressAction(Request $request)
     {
         $listAddresses = $this->getDoctrine()
                 ->getManager()
                 ->getRepository('A2CPlatformBundle:BannedAddress')
                 ->findAll();
 
-        $form = $this->get('form.factory')->create();
+        $ba = new BannedAddress();
+        $form = $this->get('form.factory')->create(BannedAddressType::class, $ba);
 
+		// If there is a client request
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            //@TODO : ban the address
+			$params = $request->request->all();
+			$bannedAddress = $params['banned_address']['emailAddress'];
+			
+            $request->getSession()->getFlashBag()
+			->add('info',$this->get('translator')
+			->trans('admin.ban.flashbag.banned', array('%address%' => $bannedAddress)));
+        }
+		
         return $this->render('A2CPlatformBundle:Admin:ban.html.twig', array(
                     'listAddresses' => $listAddresses,
                     'form' => $form->createView())
@@ -114,7 +128,7 @@ class AdminController extends Controller
      * The banned address could be unbanned with the unban button
      * in the banned address list.
      */
-    public function banEmailAddressAction(Request $request)
+    /*public function banEmailAddressAction(Request $request)
     {
         // Build the form using BanEmailAddressType class
         $ba = new BannedAddress();
@@ -127,9 +141,10 @@ class AdminController extends Controller
         }
 
         return $this->render('A2CPlatformBundle:Admin:ban.html.twig', array(
+					//'listAddresses' => $listAddresses,
                     'form' => $form->createView(),
         ));
-    }
+    }*/
 
     /**
      * This action will allow a banned email address to post adverts and answers.

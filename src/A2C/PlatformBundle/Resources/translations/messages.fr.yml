@@ -40,7 +40,7 @@ admin:
             address: Adresse e-mail
             submit: Bannir
         flashbag:
-            banned: L'adresse a bien été bannie.
+            banned: L'adresse %address% a bien été bannie.
         
     controller:
         list:

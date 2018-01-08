@@ -1,0 +1,12 @@
+# TODO
+- réparer bannir adresse
+- réparer mail collectif
+- tester mail collectif
+- tester formulaire contact
+- ajouter captcha formulaire contact
+- écrire déposer annonce
+- tester déposer annonce
+- écrire trouver partenaire
+	- affichage annonce
+	- répondre annonce
+- tester bannir adresse
