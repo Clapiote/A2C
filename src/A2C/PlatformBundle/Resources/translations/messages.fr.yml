@@ -2,6 +2,8 @@
 ---
 contact:
     title:
+    flashbag:
+        sent: "Le message a bien été envoyé."
     body:
         idea: "Idée du site : blaaaa"
         whoami: Qui suis-je ?

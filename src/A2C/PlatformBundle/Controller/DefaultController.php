@@ -26,7 +26,7 @@ class DefaultController extends Controller
         // If there is a client request
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 			//@TODO : send the message
-            $request->getSession()->getFlashBag()->add('info', 'Message bien envoyé');
+            $request->getSession()->getFlashBag()->add('info', $this->get('translator')->trans('default.contact.flashbag.sent'));
         }
         
         return $this->render('A2CPlatformBundle:Default:contact.html.twig', array(

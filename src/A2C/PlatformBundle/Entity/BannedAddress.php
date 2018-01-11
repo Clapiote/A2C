@@ -5,6 +5,8 @@ namespace A2C\PlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * This class is used to manage banned email addresses that are not linked with
  * an user. It happens when someone responds to an advert.
@@ -16,6 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Table(name="a2c_bannedAddress")
  * @ORM\Entity(repositoryClass="A2C\PlatformBundle\Repository\BannedAddressRepository")
+ * @UniqueEntity(fields={"emailAddress"}, message="entity.banned_address.already_banned")
  */
 class BannedAddress {
     /**
@@ -28,8 +31,8 @@ class BannedAddress {
     
     /**
      * @var string The email address that is banned
-     * @ORM\Column(name="emailAddress", type="string", length=255)
-	 * @Assert\Email(message="contact.errors.bad_email_address")
+     * @ORM\Column(name="emailAddress", type="string", length=255, unique=true)
+	 * @Assert\Email(message="entity.banned_address.bad_email_address")
      */
     private $emailAddress;
     

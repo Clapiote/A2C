@@ -1,5 +1,6 @@
 ## YAML Template.
 ---
-contact:
-    errors:
+entity:
+    banned_address:
+        already_banned: L'adresse est déjà bannie!
         bad_email_address: La valeur entrée n'est pas une adresse e-mail valide.
