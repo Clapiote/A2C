@@ -3,10 +3,10 @@
 {% extends "A2CPlatformBundle:Admin:index.html.twig" %}
 
 {% block body %}
-	<h2> {{ 'admin.ban.newban'|trans }} </h2>
-	{# Display the form to ban an address #}
-	<div class="well">
-		{# <form> opening tag #}
+    <h2> {{ 'admin.ban.newban'|trans }} </h2>
+    {# Display the form to ban an address #}
+    <div class="well">
+        {# <form> opening tag #}
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
         {# Generic form errors #}
@@ -20,10 +20,11 @@
             <div class="col-sm-10">
                 {{ form_widget(form.emailAddress) }}
             </div>
+            {# Submit button #}
+            <div class="col-sm-10">
+                {{ form_widget(form.send, {'label': 'admin.ban.form.submit', 'attr': {'class': 'btn btn-primary'}}) }}
+            </div>
         </div>
-
-        {# Submit button #}
-        {{ form_widget(form.send, {'label': 'admin.ban.form.submit', 'attr': {'class': 'btn btn-primary'}}) }}
 
         {# CSRF #}
         {{ form_rest(form) }}
@@ -31,29 +32,29 @@
         {# </form> closing tag #}
         {{ form_end(form) }}
     </div>
-	
+
     <h2> {{ 'admin.ban.title'|trans }} </h2>
-	
-	{# Print the list of banned email addresses, with the unban action #}
-	<table>
-		<tr>
-			<th> {{ 'admin.ban.column1'|trans }} </th>
-			<th> {{ 'admin.ban.column2'|trans }} </th>
-			<th> {{ 'admin.ban.column3'|trans }} </th>
-		</tr>
-		{% for address in listAddresses %}
-			<tr>
-				<td>{{ address.emailAddress }}</td>
-				<td>{{ address.bannedDate|date('Y-m-d H:i:s') }}</td>
-				{# Unban button #}
-				<td><form action="{{ path('a2c_platform_admin_unban', {'id': address.id}) }}" method="post">
-					<input type="submit" value="{{ 'admin.ban.unban'|trans}}" class="btn btn-danger" />
-					{# CSRF token #}
-					{{ form_rest(form) }}
-					</form>
-				</td>
-			</tr>
-		{% endfor %}
-	</table>
-	
+
+    {# Print the list of banned email addresses, with the unban action #}
+    <table>
+        <tr>
+            <th> {{ 'admin.ban.column1'|trans }} </th>
+            <th> {{ 'admin.ban.column2'|trans }} </th>
+            <th> {{ 'admin.ban.column3'|trans }} </th>
+        </tr>
+        {% for address in listAddresses %}
+            <tr>
+                <td>{{ address.emailAddress }}</td>
+                <td>{{ address.bannedDate|date('Y-m-d H:i:s') }}</td>
+                {# Unban button #}
+                <td><form action="{{ path('a2c_platform_admin_unban', {'id': address.id}) }}" method="post">
+                        <input type="submit" value="{{ 'admin.ban.unban'|trans}}" class="btn btn-danger" />
+                        {# CSRF token #}
+                        {{ form_rest(form2) }}
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
 {% endblock %}

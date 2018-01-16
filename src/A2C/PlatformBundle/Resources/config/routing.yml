@@ -54,11 +54,11 @@ a2c_platform_admin_listbanned:
         _controller: A2CPlatformBundle:Admin:listBannedEmailAddress
             
 a2c_platform_admin_unban:
-    path:     /manage/admin/unban
+    path:     /manage/admin/unban/{id}
     defaults:
         _controller: A2CPlatformBundle:Admin:unbanEmailAddress
     requirements:
-        page: \d*
+        id: \d*
         
 a2c_platform_admin_mail:
     path:     /manage/admin/mail
