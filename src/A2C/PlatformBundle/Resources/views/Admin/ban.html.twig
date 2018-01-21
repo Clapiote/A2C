@@ -7,30 +7,30 @@
     {# Display the form to ban an address #}
     <div class="well">
         {# <form> opening tag #}
-        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_start(formBan, {'attr': {'class': 'form-horizontal'}}) }}
 
         {# Generic form errors #}
-        {{ form_errors(form) }}
+        {{ form_errors(formBan) }}
 
         {# Manual generation of the form's objects #}
         {# E-mail address #}
         <div class="form-group">
-            {{ form_label(form.emailAddress, 'admin.ban.form.address', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-            {{ form_errors(form.emailAddress) }}
+            {{ form_label(formBan.emailAddress, 'admin.ban.form.address', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_errors(formBan.emailAddress) }}
             <div class="col-sm-10">
-                {{ form_widget(form.emailAddress) }}
+                {{ form_widget(formBan.emailAddress) }}
             </div>
             {# Submit button #}
             <div class="col-sm-10">
-                {{ form_widget(form.send, {'label': 'admin.ban.form.submit', 'attr': {'class': 'btn btn-primary'}}) }}
+                {{ form_widget(formBan.send, {'label': 'admin.ban.form.submit', 'attr': {'class': 'btn btn-primary'}}) }}
             </div>
         </div>
 
         {# CSRF #}
-        {{ form_rest(form) }}
+        {{ form_rest(formBan) }}
 
         {# </form> closing tag #}
-        {{ form_end(form) }}
+        {{ form_end(formBan) }}
     </div>
 
     <h2> {{ 'admin.ban.title'|trans }} </h2>
@@ -50,7 +50,7 @@
                 <td><form action="{{ path('a2c_platform_admin_unban', {'id': address.id}) }}" method="post">
                         <input type="submit" value="{{ 'admin.ban.unban'|trans}}" class="btn btn-danger" />
                         {# CSRF token #}
-                        {{ form_rest(form2) }}
+                        {{ form_rest(formUnban) }}
                     </form>
                 </td>
             </tr>

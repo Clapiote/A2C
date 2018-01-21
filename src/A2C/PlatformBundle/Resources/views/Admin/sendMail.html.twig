@@ -1,17 +1,35 @@
 {# src/A2C/PlatformBundle/Resources/views/Admin/list.html.twig #}
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+
+{% extends "A2CPlatformBundle:Admin:index.html.twig" %}
+
+{% block body %}
+    <h2> {{ 'admin.broadcast.title'|trans }} </h2>
+    {# Display the form to send an email #}
+    <div class="well">
+        {# <form> opening tag #}
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+        {# Generic form errors #}
+        {{ form_errors(form) }}
+
+        {# Manual generation of the form's objects #}
+        {# Message #}
+        <div class="form-group">
+            {{ form_label(form.message, 'admin.broadcast.form.message', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_errors(form.message) }}
+            <div class="col-sm-10">
+                {{ form_widget(form.message) }}
+            </div>
+            {# Submit button #}
+            <div class="col-sm-10">
+                {{ form_widget(form.send, {'label': 'admin.broadcast.form.submit', 'attr': {'class': 'btn btn-primary'}}) }}
+            </div>
+        </div>
+
+        {# CSRF #}
+        {{ form_rest(form) }}
+
+        {# </form> closing tag #}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

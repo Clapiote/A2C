@@ -7,6 +7,7 @@ namespace A2C\PlatformBundle\Controller;
 use A2C\PlatformBundle\Entity\Advert;
 use A2C\PlatformBundle\Entity\BannedAddress;
 use A2C\PlatformBundle\Form\BannedAddressType;
+use A2C\PlatformBundle\Form\SendBroadcastMailType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -102,13 +103,13 @@ class AdminController extends Controller
 
         // Create new form
         $ba = new BannedAddress();
-        $form = $this->get('form.factory')->create(BannedAddressType::class, $ba);
+        $formBan = $this->get('form.factory')->create(BannedAddressType::class, $ba);
 
         // Empty form, just to handle CSRF token
-        $form2 = $this->get('form.factory')->create();
+        $formUnban = $this->get('form.factory')->create();
         
         // If there is a client request
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        if ($request->isMethod('POST') && $formBan->handleRequest($request)->isValid()) {
             //Fetch the address from post request
             $params = $request->request->all();
             $bannedAddress = new BannedAddress();
@@ -129,8 +130,8 @@ class AdminController extends Controller
 
         return $this->render('A2CPlatformBundle:Admin:ban.html.twig', array(
                     'listAddresses' => $listAddresses,
-                    'form' => $form->createView(),
-                    'form2' => $form2->createView())
+                    'formBan' => $formBan->createView(),
+                    'formUnban' => $formUnban->createView())
         );
     }
 
@@ -161,7 +162,7 @@ class AdminController extends Controller
     /**
      * This action will allow a banned email address to post adverts and answers.
      * It's called by the button in the banned email addresses list.
-     * ** ParamConverter("bannedAddress", class="A2CPlatformBundle:BannedAddress")
+     * @ParamConverter("bannedAddress", class="A2CPlatformBundle:BannedAddress")
      */
     public function unbanEmailAddressAction(Request $request, BannedAddress $bannedAddress)
     {
@@ -173,10 +174,6 @@ class AdminController extends Controller
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             //Fetch the address from post request
             $params = $request->request->all();
-            $bannedAddress = new BannedAddress();
-            //@TODO : verify post data
-            $addressToBan = $params['banned_address']['emailAddress'];
-            $bannedAddress->setEmailAddress($addressToBan);
             $em->remove($bannedAddress);
             $em->flush();
 
@@ -188,19 +185,38 @@ class AdminController extends Controller
 
             return $this->redirectToRoute('a2c_platform_admin_listbanned');
         }
-        $errors = $form->getErrors();
-        return new Response($errors);
-        //return $this->render('A2CPlatformBundle:Admin:ban.html.twig');
-       //return $this->redirectToRoute('a2c_platform_admin_listbanned');
+       //return $this->render('A2CPlatformBundle:Admin:ban.html.twig');
+       return $this->redirectToRoute('a2c_platform_admin_listbanned');
     }
 
     /**
      * This action will send an email to a subset of the whole website users.
      * It's called by the form on the send broadcast mail page
      */
-    public function sendBroadcastMailAction()
+    public function sendBroadcastMailAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         
+        // Create form
+        $form = $this->get('form.factory')->create(SendBroadcastMailType::class);
+        
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            // Fetch all the addresses mail from database
+            $addressesList = $em->getRepository('A2CPlatformBundle:User')->findAllAdresses();
+            
+            // Call mail service
+            
+            
+            $request->getSession()->getFlashBag()
+                    ->add('info', $this->get('translator')
+                            ->trans('admin.broadcast.flashbag.mailsent', array('%nbAddresses%' => count($addressesList))));
+
+            return $this->redirectToRoute('a2c_platform_admin');
+        }
+        
+        return $this->render('A2CPlatformBundle:Admin:sendMail.html.twig', array(
+                    'form' => $form->createView())
+        ); 
     }
 
 }

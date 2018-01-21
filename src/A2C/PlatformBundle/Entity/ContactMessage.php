@@ -1,4 +1,5 @@
 <?php
+
 // src/A2C/PlatformBundle/Entity/ContactMessage.php
 
 namespace A2C\PlatformBundle\Entity;
@@ -11,29 +12,29 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author Vincent
  */
-class ContactMessage 
+class ContactMessage
 {
-    
+
     /**
      * The name of the sender
      * @var type string
      */
     private $name;
-    
+
     /**
      * The email address of the sender
      * @var type string
      * @Assert\Email(message="contact.errors.bad_email_address")
      */
     private $emailAddress;
-    
+
     /**
      * The message
      * @var type string
      */
     private $message;
-    
-    public static function fromArray($array) 
+
+    public static function fromArray($array)
     {
         $cm = new ContactMessage();
         $cm->setName($array['name']);
@@ -41,7 +42,7 @@ class ContactMessage
         $cm->setMessage($array['message']);
         return $cm;
     }
-    
+
     /**
      * Get id
      *
@@ -123,5 +124,5 @@ class ContactMessage
     {
         return $this->message;
     }
-}
 
+}
