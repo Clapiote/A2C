@@ -43,7 +43,17 @@ admin:
             submit: Bannir
         flashbag:
             banned: L'adresse %address% a bien été bannie.
-        
+            unbanned: L'adresse %address% a bien été bannie.
+    
+    broadcast:
+        title: Envoi d'un message collectif
+        form:
+            message: Message
+            submit: Envoyer
+        flashbag:
+            mailsent: Le message a bien été envoyé à %nbAddresses% addresses!
+            mailnotsent: Le message n'a pas été envoyé
+            
     controller:
         list:
             noPage: La page %page% n'existe pas
