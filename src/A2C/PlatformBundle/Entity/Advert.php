@@ -1,9 +1,12 @@
 <?php
+
 // src/A2C/PlatformBundle/Entity/Advert.php
 
 namespace A2C\PlatformBundle\Entity;
 
+
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Advert
@@ -13,6 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Advert
 {
+
     /**
      * @var int The id of the advert, auto-generated.
      *
@@ -26,14 +30,16 @@ class Advert
      * @var string The city in which will take place the meetup.
      *
      * @ORM\Column(name="city", type="string", length=64)
+     * @Assert\NotBlank
      */
     private $city;
 
     /**
      * @var string The department of the city, auto-calculated.
-	 * @TODO : auto calculate this
+     * @TODO : auto calculate this
      *
      * @ORM\Column(name="dept", type="string", length=64)
+     * @Assert\NotBlank
      */
     private $dept;
 
@@ -41,6 +47,7 @@ class Advert
      * @var \DateTime The date of the advert's creation.
      *
      * @ORM\Column(name="creationDate", type="datetime")
+     * @Assert\DateTime();
      */
     private $creationDate;
 
@@ -48,6 +55,7 @@ class Advert
      * @var string The text of the advert.
      *
      * @ORM\Column(name="text", type="text")
+     * @Assert\NotBlank
      */
     private $text;
 
@@ -61,8 +69,8 @@ class Advert
     /**
      * @var enum Used by $purpose variable
      */
-    public static $purposeType = array("teacher"=>0, "learner"=>1);
-    
+    public static $purposeType = array("teacher" => 0, "learner" => 1);
+
     /**
      * @var int 0 if it's a teacher advert, 1 if it's a learner/sharer advert.
      * Prefer the use of $purposeType enumeration
@@ -78,11 +86,12 @@ class Advert
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
-    
+
     /**
      * Constructor
      */
-    public function __construct($city = null, $dept = null, $purpose = null, $text = null) {
+    public function __construct($city = null, $dept = null, $purpose = null, $text = null)
+    {
         $this->city = $city;
         $this->dept = $dept;
         $this->creationDate = new \DateTime("now", new \DateTimeZone('Europe/Paris'));
@@ -91,7 +100,7 @@ class Advert
         $this->isArchived = false;
         $this->user = null;
     }
-    
+
     /**
      * Get id
      *
@@ -245,30 +254,29 @@ class Advert
     {
         return $this->purpose;
     }
-	
+
     /**
-    * Set user
-    *
-    * @param User $user
-    *
-    * @return Advert
-    */
+     * Set user
+     *
+     * @param User $user
+     *
+     * @return Advert
+     */
     public function setUser($user)
     {
-            $this->user = $user;
-            $user->addAdvert($this);
-            return $this;
+        $this->user = $user;
+        $user->addAdvert($this);
+        return $this;
     }
 
     /**
-    * Get user
-    *
-    * @return User
-    */
+     * Get user
+     *
+     * @return User
+     */
     public function getUser()
     {
-            return $this->user;
+        return $this->user;
     }
-	
-	
+
 }
