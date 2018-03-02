@@ -1,10 +1,14 @@
 # TODO
-- réparer bannir adresse
 - faire unban address
-- écrire mail collectif
+- créer service mail
+- appel service mail collectif
 - tester mail collectif
+- appel service mail contact
 - tester formulaire contact
 - ajouter captcha formulaire contact
+- créer service antispam
+- créer service vérification nombre annonce
+- créer service envoi mail de confirmation pour la création ?
 - écrire déposer annonce
 - tester déposer annonce
 - écrire trouver partenaire
