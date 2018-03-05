@@ -3,6 +3,20 @@
 {% extends "A2CPlatformBundle:Admin:index.html.twig" %}
 
 {% block body %}
+<script>
+function unban(addressId)
+{
+	if (confirm('{{ 'admin.ban.unban.confirm.question'|trans }}')) {
+		url = '{{ path('a2c_platform_admin_unban', {'id':0}) }}'.slice(0, -2);
+		url = url + "/" + addressId;
+		window.location.assign(url);
+	}
+	else {
+		// Do nothing
+	}
+}
+</script>
+
     <h2> {{ 'admin.ban.newban'|trans }} </h2>
     {# Display the form to ban an address #}
     <div class="well">
@@ -47,14 +61,12 @@
                 <td>{{ address.emailAddress }}</td>
                 <td>{{ address.bannedDate|date('Y-m-d H:i:s') }}</td>
                 {# Unban button #}
-                <td><form action="{{ path('a2c_platform_admin_unban', {'id': address.id}) }}" method="post">
-                        <input type="submit" value="{{ 'admin.ban.unban'|trans}}" class="btn btn-danger" />
-                        {# CSRF token #}
-                        {{ form_rest(formUnban) }}
-                    </form>
-                </td>
+				{# @TODO : CSRF protection, at least throw a popup #}
+                <td><a href="#" onclick="unban({{ address.id }}); return false;" class="btn btn-danger">{{ 'admin.ban.unban'|trans}}</a></td>
             </tr>
         {% endfor %}
     </table>
+	
 
 {% endblock %}
+

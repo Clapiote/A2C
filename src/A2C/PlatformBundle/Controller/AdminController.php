@@ -171,21 +171,18 @@ class AdminController extends Controller
         // Empty form, just to handle CSRF token
         $form = $this->get('form.factory')->create();
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            //Fetch the address from post request
-            $params = $request->request->all();
-            $em->remove($bannedAddress);
-            $em->flush();
+        //Fetch the address from post request
+		// @TODO : CSRF protection, at least throw a popup
+        $params = $request->request->all();
+        $em->remove($bannedAddress);
+        $em->flush();
 
-            $addressToUnban = $bannedAddress->getEmailAddress();
+        $addressToUnban = $bannedAddress->getEmailAddress();
 
-            $request->getSession()->getFlashBag()
-                    ->add('info', $this->get('translator')
-                            ->trans('admin.ban.flashbag.unbanned', array('%address%' => $addressToUnban)));
+		$request->getSession()->getFlashBag()
+				->add('info', $this->get('translator')
+						->trans('admin.ban.flashbag.unbanned', array('%address%' => $addressToUnban)));
 
-            return $this->redirectToRoute('a2c_platform_admin_listbanned');
-        }
-       //return $this->render('A2CPlatformBundle:Admin:ban.html.twig');
        return $this->redirectToRoute('a2c_platform_admin_listbanned');
     }
 

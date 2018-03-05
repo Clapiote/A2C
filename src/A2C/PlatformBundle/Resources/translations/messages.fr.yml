@@ -38,7 +38,10 @@ admin:
         newban: Bannir une adresse
         title: Listes des adresses bannies
         bannedOn: Bannie le
-        unban: Ne plus bannir
+        unban:
+            button: Ne plus bannir
+            confirm:
+                question: "Autoriser à nouveau cette adresse ?"
         column1: Adresse e-mail
         column2: Date
         column3: Rétablir
@@ -47,7 +50,8 @@ admin:
             submit: Bannir
         flashbag:
             banned: L'adresse %address% a bien été bannie.
-            unbanned: L'adresse %address% a bien été bannie.
+            unbanned: L'adresse %address% est à nouveau autorisée.
+
     
     broadcast:
         title: Envoi d'un message collectif

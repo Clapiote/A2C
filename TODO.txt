@@ -1,5 +1,4 @@
 # TODO
-- faire unban address
 - créer service mail
 - appel service mail collectif
 - tester mail collectif
@@ -14,4 +13,4 @@
 - écrire trouver partenaire
 	- affichage annonce
 	- répondre annonce
-- tester bannir adresse
+- tester bannir et unban adresse
