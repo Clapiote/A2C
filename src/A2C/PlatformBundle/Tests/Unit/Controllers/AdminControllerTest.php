@@ -58,7 +58,6 @@ final class AdminControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/manage/admin/list/1');
-        echo $crawler->fil
         $this->assertTrue($crawler->filter('html:contains("liste")')->count()>0);
        // $this->assertEquals(AdminController::NB_PER_PAGE, $crawler->filter('html:contains("<li>")')->count());
     }

@@ -47,7 +47,7 @@ class Advert
      * @var \DateTime The date of the advert's creation.
      *
      * @ORM\Column(name="creationDate", type="datetime")
-     * @Assert\DateTime();
+     * @Assert\DateTime()
      */
     private $creationDate;
 
@@ -76,6 +76,7 @@ class Advert
      * Prefer the use of $purposeType enumeration
      *
      * @ORM\Column(name="purpose", type="smallint")
+     * @Assert\NotBlank
      */
     private $purpose;
 

@@ -14,3 +14,4 @@
 	- affichage annonce
 	- répondre annonce
 - tester bannir et unban adresse
+- proposer un sous-ensemble des utilisateurs pour le mail collectif

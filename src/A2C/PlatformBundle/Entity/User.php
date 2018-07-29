@@ -4,6 +4,7 @@
 namespace A2C\PlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -26,6 +27,7 @@ class User
      * @var string The firstname of the user.
      *
      * @ORM\Column(name="firstName", type="string", length=64)
+     * @Assert\NotBlank
      */
     private $firstName;
 
@@ -33,6 +35,7 @@ class User
      * @var string The lastname of the user.
      *
      * @ORM\Column(name="lastName", type="string", length=64)
+     * @Assert\NotBlank
      */
     private $lastName;
 
@@ -40,6 +43,8 @@ class User
      * @var string The email address of the user.
      *
      * @ORM\Column(name="emailAddress", type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Email
      */
     private $emailAddress;
 
@@ -53,13 +58,24 @@ class User
      * Prefer the use of $genderType enumeration
      *
      * @ORM\Column(name="gender", type="boolean")
+     * @Assert\NotBlank
      */
-    private $gender;    
+    private $gender;
+    
+    /**
+     * @var date The creation's date of the user.
+     *
+     * @ORM\Column(name="creationDate", type="date")
+     * @Assert\NotBlank
+     * @Assert\DateTime()
+     */
+    private $creationDate;
     
     /**
      * @var bool 1 if the user is banned, 0 otherwise.
      *
      * @ORM\Column(name="isBanned", type="boolean")
+     * @Assert\NotBlank
      */
     private $isBanned;
 
@@ -73,6 +89,8 @@ class User
     /**
     * @var int The number of adverts created by the user. Limited to 5 by user.
     * @ORM\Column(name="advertsNb", type="smallint")
+    * @Assert\NotBlank
+    * @Assert\Range(min=0)
     */
     private $advertsNb;
 	
@@ -85,6 +103,7 @@ class User
         $this->lastName = $lastName;
         $this->emailAddress = $emailAddress;
         $this->gender = $gender;
+        $this->creationDate = new \Datetime();
         $this->adverts = new \Doctrine\Common\Collections\ArrayCollection();
         $this->advertsNb = 0;
         $this->isBanned = false;
@@ -196,6 +215,22 @@ class User
         return $this->gender;
     }
 
+    /**
+     * @return date creation date
+     */
+    public function getCreationDate()
+    {
+        return $this->creationDate;
+    }
+
+    /*
+     * @param date creation date
+     */
+    public function setCreationDate($creationDate)
+    {
+        $this->creationDate = $creationDate;
+    }
+    
     /**
      * Set isBanned
      *

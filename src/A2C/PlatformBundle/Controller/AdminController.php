@@ -6,6 +6,7 @@ namespace A2C\PlatformBundle\Controller;
 
 use A2C\PlatformBundle\Entity\Advert;
 use A2C\PlatformBundle\Entity\BannedAddress;
+use A2C\PlatformBundle\Entity\BroadcastMessage;
 use A2C\PlatformBundle\Form\BannedAddressType;
 use A2C\PlatformBundle\Form\SendBroadcastMailType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -136,6 +137,7 @@ class AdminController extends Controller
     }
 
     /**
+     * ! Replaced by listBAnnedEmailAddressAction !
      * This action will ban an email address.
      * It's call by the simple form in the banEmail page.
      * The banned address could be unbanned with the unban button
@@ -188,21 +190,35 @@ class AdminController extends Controller
 
     /**
      * This action will send an email to a subset of the whole website users.
-     * It's called by the form on the send broadcast mail page
+     * The message is logged into the database.
+     * It's called by the form on the send broadcast mail page.
      */
     public function sendBroadcastMailAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $broadcastMessage = new BroadcastMessage();
         
         // Create form
-        $form = $this->get('form.factory')->create(SendBroadcastMailType::class);
+        $form = $this->get('form.factory')->create(SendBroadcastMailType::class, $broadcastMessage);
         
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            // @TODO : send to a subset of users
             // Fetch all the addresses mail from database
             $addressesList = $em->getRepository('A2CPlatformBundle:User')->findAllAdresses();
             
             // Call mail service
+            $mailer = $this->container->get('mailer');
+            $mail = (new \Swift_Message($broadcastMessage->getTitle()))
+                ->setFrom($this->getParameter('mailer_address'))
+                ->setTo($addressesList)
+                ->setBody($broadcastMessage->getMessage())
+            ;
+            $mailer->send($mail);
             
+            // Log mail into the database
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($broadcastMessage);
+            $em->flush();
             
             $request->getSession()->getFlashBag()
                     ->add('info', $this->get('translator')
