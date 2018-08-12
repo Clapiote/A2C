@@ -14,7 +14,7 @@
                 </p>
                 {# Delete button #}
                 <form action="{{ path('a2c_platform_admin_advert_delete', {'id': advert.id}) }}" method="post">
-                    <input type="submit" value="{{ 'admin.list.delete'|trans}}" class="btn btn-danger" />
+                    <input type="submit" value="{{ 'admin.list.delete'|trans}}" name="delete_{{advert.id}}" class="btn btn-danger" />
                     {# CSRF token #}
                     {{ form_rest(form) }}
                 </form>

@@ -1,7 +1,7 @@
 <?php
 // src/A2C/PlatformBundle/DataFixtures/ORM/LoadBannedAddress.php
 
-namespace A2C\PlatformBundle\Fixtures\ORM;
+namespace A2C\PlatformBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;

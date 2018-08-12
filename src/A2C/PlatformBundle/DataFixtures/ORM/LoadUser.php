@@ -1,7 +1,7 @@
 <?php
 // src/A2C/PlatformBundle/DataFixtures/ORM/LoadUser.php
 
-namespace A2C\PlatformBundle\Fixtures\ORM;
+namespace A2C\PlatformBundle\DataFixtures\ORM;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;

@@ -22,5 +22,17 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         
         return $query->getQuery()->getArrayResult();
     }
+    
+    /**
+     * Fetch a random user
+     * @return User a random user
+     */
+    public function findRandomUser()
+    {
+        $users = $this->findAll();
+        $randomIndex = rand(0, count($users) - 1);
+        return $users[$randomIndex];
+    }
+    
 
 }

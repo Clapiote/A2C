@@ -54,6 +54,14 @@ class AdminController extends Controller
                 ->getRepository('A2CPlatformBundle:Advert')
                 ->getAdverts($page, self::NB_PER_PAGE);
 
+        if (count($listAdverts) == 0) {
+            return $this->render('A2CPlatformBundle:Admin:list.html.twig', array(
+                        'listAdverts' => $listAdverts,
+                        'pageNb' => 1,
+                        'page' => 1)
+            );
+        }
+
         $nbOfPages = ceil(count($listAdverts) / self::NB_PER_PAGE);
 
         if ($page > $nbOfPages) {
@@ -87,11 +95,9 @@ class AdminController extends Controller
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('info', $this->get('translator')->trans('admin.list.flashbag.deleted'));
-
-            return $this->redirectToRoute('a2c_platform_admin_list');
         }
 
-        return $this->render('A2CPlatformBundle:Admin:list.html.twig');
+        return $this->redirectToRoute('a2c_platform_admin_list');
     }
 
     /**
@@ -108,7 +114,7 @@ class AdminController extends Controller
 
         // Empty form, just to handle CSRF token
         $formUnban = $this->get('form.factory')->create();
-        
+
         // If there is a client request
         if ($request->isMethod('POST') && $formBan->handleRequest($request)->isValid()) {
             //Fetch the address from post request
@@ -174,18 +180,17 @@ class AdminController extends Controller
         $form = $this->get('form.factory')->create();
 
         //Fetch the address from post request
-		// @TODO : CSRF protection, at least throw a popup
-        $params = $request->request->all();
+        // @TODO : CSRF protection, at least throw a popup
         $em->remove($bannedAddress);
         $em->flush();
 
         $addressToUnban = $bannedAddress->getEmailAddress();
 
-		$request->getSession()->getFlashBag()
-				->add('info', $this->get('translator')
-						->trans('admin.ban.flashbag.unbanned', array('%address%' => $addressToUnban)));
+        $request->getSession()->getFlashBag()
+                ->add('info', $this->get('translator')
+                        ->trans('admin.ban.flashbag.unbanned', array('%address%' => $addressToUnban)));
 
-       return $this->redirectToRoute('a2c_platform_admin_listbanned');
+        return $this->redirectToRoute('a2c_platform_admin_listbanned');
     }
 
     /**
@@ -197,39 +202,39 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $broadcastMessage = new BroadcastMessage();
-        
+
         // Create form
         $form = $this->get('form.factory')->create(SendBroadcastMailType::class, $broadcastMessage);
-        
+
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             // @TODO : send to a subset of users
             // Fetch all the addresses mail from database
             $addressesList = $em->getRepository('A2CPlatformBundle:User')->findAllAdresses();
-            
+
             // Call mail service
             $mailer = $this->container->get('mailer');
             $mail = (new \Swift_Message($broadcastMessage->getTitle()))
-                ->setFrom($this->getParameter('mailer_address'))
-                ->setTo($addressesList)
-                ->setBody($broadcastMessage->getMessage())
+                    ->setFrom($this->getParameter('mailer_address'))
+                    ->setTo($addressesList)
+                    ->setBody($broadcastMessage->getMessage())
             ;
             $mailer->send($mail);
-            
+
             // Log mail into the database
             $em = $this->getDoctrine()->getManager();
             $em->persist($broadcastMessage);
             $em->flush();
-            
+
             $request->getSession()->getFlashBag()
                     ->add('info', $this->get('translator')
                             ->trans('admin.broadcast.flashbag.mailsent', array('%nbAddresses%' => count($addressesList))));
 
             return $this->redirectToRoute('a2c_platform_admin');
         }
-        
+
         return $this->render('A2CPlatformBundle:Admin:sendMail.html.twig', array(
                     'form' => $form->createView())
-        ); 
+        );
     }
 
 }
