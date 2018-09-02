@@ -210,6 +210,10 @@ class AdminController extends Controller
             // @TODO : send to a subset of users
             // Fetch all the addresses mail from database
             $addressesList = $em->getRepository('A2CPlatformBundle:User')->findAllAdresses();
+            
+            // @TODO ! for testing only !
+            $addressesList = "vinc_06@hotmail.fr";
+            
 
             // Call mail service
             $mailer = $this->container->get('mailer');
@@ -225,6 +229,7 @@ class AdminController extends Controller
             $em->persist($broadcastMessage);
             $em->flush();
 
+            // @TODO adapter le message si 1 adresse
             $request->getSession()->getFlashBag()
                     ->add('info', $this->get('translator')
                             ->trans('admin.broadcast.flashbag.mailsent', array('%nbAddresses%' => count($addressesList))));

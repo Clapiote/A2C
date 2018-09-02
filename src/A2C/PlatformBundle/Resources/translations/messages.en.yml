@@ -6,3 +6,8 @@ contact:
         email_address: E-mail Address
         message: Message
         send: Send
+  
+admin:
+    broadcast:
+        form:
+            submit: Send

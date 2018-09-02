@@ -262,4 +262,12 @@ final class AdminControllerTest extends WebTestCase
         $this->assertEquals(count($addressesBefore), $addressesAfter);
     }
 
+    /**
+     * Action : sendBroadcastMail
+     * Tests
+     */
+    public function testBroadcastMail()
+    {
+        
+    }
 }

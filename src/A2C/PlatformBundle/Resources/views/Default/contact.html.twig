@@ -17,7 +17,7 @@
         {# Manual generation of the form's objects #}
 		{# Name #}
         <div class="form-group">
-            {{ form_label(form.name, 'contact.form.name', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_label(form.name, 'contact.form.name'|trans, {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
 
             {# Display errors for the group #}
             {{ form_errors(form.name) }}
@@ -29,7 +29,7 @@
 
         {# E-mail address #}
         <div class="form-group">
-            {{ form_label(form.emailAddress, 'contact.form.email_address', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_label(form.emailAddress, 'contact.form.email_address'|trans, {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
             {{ form_errors(form.emailAddress) }}
             <div class="col-sm-10">
                 {{ form_widget(form.emailAddress) }}
@@ -38,7 +38,7 @@
 
         {# Message #}
         <div class="form-group">
-            {{ form_label(form.message, 'contact.form.message', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_label(form.message, 'contact.form.message'|trans, {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
             {{ form_errors(form.message) }}
             <div class="col-sm-10">
                 {{ form_widget(form.message) }}
@@ -47,7 +47,7 @@
 
 
         {# Submit button #}
-        {{ form_widget(form.send, {'label': 'contact.form.send', 'attr': {'class': 'btn btn-primary'}}) }}
+        {{ form_widget(form.send, {'label': 'contact.form.send'|trans, 'attr': {'class': 'btn btn-primary'}}) }}
 
         {# CSRF #}
         {{ form_rest(form) }}

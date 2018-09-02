@@ -57,6 +57,7 @@ admin:
         title: Envoi d'un message collectif
         form:
             message: Message
+            title: Titre
             submit: Envoyer
         flashbag:
             mailsent: Le message a bien été envoyé à %nbAddresses% addresses!

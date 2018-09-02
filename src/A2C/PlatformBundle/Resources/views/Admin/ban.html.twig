@@ -29,14 +29,14 @@ function unban(addressId)
         {# Manual generation of the form's objects #}
         {# E-mail address #}
         <div class="form-group">
-            {{ form_label(formBan.emailAddress, 'admin.ban.form.address', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            {{ form_label(formBan.emailAddress, 'admin.ban.form.address'|trans, {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
             {{ form_errors(formBan.emailAddress) }}
             <div class="col-sm-10">
                 {{ form_widget(formBan.emailAddress) }}
             </div>
             {# Submit button #}
             <div class="col-sm-10">
-                {{ form_widget(formBan.send, {'label': 'admin.ban.form.submit', 'attr': {'class': 'btn btn-primary'}}) }}
+                {{ form_widget(formBan.send, {'label': 'admin.ban.form.submit'|trans, 'attr': {'class': 'btn btn-primary'}}) }}
             </div>
         </div>
 
@@ -62,7 +62,7 @@ function unban(addressId)
                 <td>{{ address.bannedDate|date('Y-m-d H:i:s') }}</td>
                 {# Unban button #}
 				{# @TODO : CSRF protection, at least throw a popup #}
-                <td><a href="#" onclick="unban({{ address.id }}); return false;" class="btn btn-danger">{{ 'admin.ban.unban'|trans}}</a></td>
+                <td><a href="#" onclick="unban({{ address.id }}); return false;" class="btn btn-danger">{{ 'admin.ban.unban.button'|trans}}</a></td>
             </tr>
         {% endfor %}
     </table>
